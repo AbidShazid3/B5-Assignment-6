@@ -10,14 +10,14 @@ interface PricingItem {
 interface PricingCardProps {
   title: string;
   items: PricingItem[];
-  accentColor?: string; // optional for different card colors
+  accentColor?: string;
 }
 
 const PricingCard = ({ title, items, accentColor = "bg-gradient-to-r from-indigo-500 to-purple-500" }: PricingCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       className={`mx-auto w-full rounded-3xl shadow-xl p-6 sm:p-8 text-gray-900 bg-white ${accentColor} bg-opacity-10 hover:shadow-2xl transition-all duration-300`}

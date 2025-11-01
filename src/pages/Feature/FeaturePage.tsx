@@ -80,7 +80,7 @@ const FeaturePage = () => {
             >
               {feature.icon}
             </div>
-            <h3 className="text-lg md:text-xl font-semibold mb-2">{feature.title}</h3>
+            <h3 className="text-lg md:text-xl font-semibold mb-2 text-black">{feature.title}</h3>
             <p className="text-gray-600 text-sm md:text-base leading-relaxed">
               {feature.description}
             </p>

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// pages/ContactPage.tsx
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { motion } from "motion/react";
+import { motion } from "motion/react"
 
 const contactFormSchema = z.object({
   name: z.string().min(3, { error: "Enter your name min 3 character length" }),

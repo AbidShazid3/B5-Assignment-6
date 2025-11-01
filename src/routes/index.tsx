@@ -4,6 +4,7 @@ import Contact from "@/pages/Contact/Contact";
 import Faq from "@/pages/Faq/Faq";
 
 import FeaturePage from "@/pages/Feature/FeaturePage";
+import Homepage from "@/pages/Homepage/Homepage";
 import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing/Pricing";
 import { createBrowserRouter } from "react-router";
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
         Component: App,
         errorElement: <NotFound />,
         children: [
+            {
+                path: "/",
+                Component: Homepage
+            },
             {
                 path: "about",
                 Component: AboutPage

@@ -1,5 +1,5 @@
 import PricingCard from "@/components/PricingCard/PricingCard";
-import { motion } from "motion/react";
+import { motion } from "motion/react"
 
 const Pricing = () => {
     const personalItems = [

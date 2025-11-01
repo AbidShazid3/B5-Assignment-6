@@ -8,39 +8,39 @@ const Team = () => {
     const members = [
         {
             id: "member-1",
-            name: "Sarah Chen",
+            name: "Abid Shazid",
             role: "CEO & Founder",
-            avatar: "https://i.ibb.co.com/5WvF6F5/service-4.jpg",
+            avatar: "https://i.ibb.co.com/gMgsqtM9/Abid-Shadat-Noor.jpg",
         },
         {
             id: "member-2",
-            name: "Marcus Rodriguez",
-            role: "CTO",
-            avatar: "https://i.ibb.co.com/BZLhwD1/guide-2.jpg",
+            name: "Jonas Lupe",
+            role: "Head of Technology",
+            avatar: "https://i.ibb.co.com/mCYzP3Yj/jonas-leupe-Warg-GLQW-Yk-unsplash.jpg",
         },
         {
             id: "member-3",
-            name: "Emily Watson",
-            role: "Head of Design",
-            avatar: "https://i.ibb.co.com/XXVXHSQ/guide-4.jpg",
+            name: "Kealy Connor",
+            role: "Lead Backend Engineer",
+            avatar: "https://i.ibb.co.com/RchXwd5/5-S-Z-ESTAVILLO-1.png",
         },
         {
             id: "member-4",
-            name: "David Kim",
-            role: "Lead Engineer",
-            avatar: "https://i.ibb.co.com/Kx6RtvM/guide-3.jpg",
+            name: "Lahud Alam",
+            role: "Lead UI/UX Designer",
+            avatar: "https://i.ibb.co.com/j31LXv2/462082235-1803618760045179-6934443572332434588-n.jpg",
         },
         {
             id: "member-5",
-            name: "Lisa Thompson",
-            role: "Product Manager",
-            avatar: "https://i.ibb.co.com/9HRyhQwg/team-5.jpg",
+            name: "Marcos felipe",
+            role: "FinTech Specialist",
+            avatar: "https://i.ibb.co.com/D1kBL9b/pexels-cristian-rojas-10041272.jpg",
         },
         {
             id: "member-6",
-            name: "Alex Johnson",
-            role: "UX Designer",
-            avatar: "https://i.ibb.co.com/Ld3HCkBP/team-6.jpg",
+            name: "Cristiana",
+            role: "Customer Experience",
+            avatar: "https://i.ibb.co.com/jks54yd/pexels-marcos-felipe-177641462-13331367.jpg",
         },
     ];
 
@@ -74,7 +74,7 @@ const Team = () => {
             </div>
 
             {/* Team Members Grid */}
-            <div className="container mx-auto grid grid-cols-1 gap-y-12 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-10">
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-6">
                 {members.map((member, index) => (
                     <motion.div
                         key={member.id}

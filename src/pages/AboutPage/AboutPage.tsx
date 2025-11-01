@@ -1,4 +1,3 @@
-import Team from "@/components/Team/Team";
 import { Code, Cog, PenTool, Shrub } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -70,7 +69,7 @@ const AboutPage = () => {
           {/* Services Section */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
             layout
@@ -80,7 +79,7 @@ const AboutPage = () => {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.5,
                   delay: index * 0.15,
@@ -118,7 +117,6 @@ const AboutPage = () => {
           </motion.div>
         </div>
       </section>
-      <Team />
     </div>
   );
 };
