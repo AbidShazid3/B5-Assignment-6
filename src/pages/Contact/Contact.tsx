@@ -18,7 +18,7 @@ import { motion } from "motion/react";
 
 const contactFormSchema = z.object({
   name: z.string().min(3, { error: "Enter your name min 3 character length" }),
-  email: z.string().email({ message: "Must be a valid email" }),
+  email: z.email({ message: "Must be a valid email" }),
   phone: z
     .string()
     .length(11, { message: "Phone number must be exactly 11 digits" })
@@ -56,15 +56,15 @@ const ContactPage = () => {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="pb-32 px-8 pt-10"
+      className="py-10 px-2 lg:px-8"
     >
       <div className="container mx-auto flex flex-col lg:flex-row gap-12">
         {/* Left Column */}
-        <div className="lg:w-1/2 flex flex-col gap-8">
-          <h1 className="text-5xl font-bold lg:text-6xl">{contactData.title}</h1>
-          <p className="text-muted-foreground">{contactData.description}</p>
+        <div className="lg:w-1/2 flex flex-col">
+          <h1 className="text-3xl font-semibold lg:text-5xl text-center mb-3">{contactData.title}</h1>
+          <p className="text-muted-foreground lg:text-xl text-center">{contactData.description}</p>
 
-          <div className="rounded-lg border p-6 shadow-sm hover:shadow-md transition">
+          <div className="rounded-lg border p-6 shadow-sm hover:shadow-md transition mt-10">
             <h3 className="text-2xl font-semibold mb-4">Contact Details</h3>
             <ul className="space-y-2 text-sm">
               <li>
@@ -88,7 +88,7 @@ const ContactPage = () => {
         </div>
 
         {/* Right Column - Form */}
-        <div className="lg:w-1/2 rounded-lg border p-8 shadow-sm hover:shadow-md transition bg-white">
+        <div className="lg:w-1/2 rounded-lg border p-8 shadow-sm hover:shadow-md transition bg-white dark:bg-accent">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {["name", "email", "phone", "subject"].map((field) => (

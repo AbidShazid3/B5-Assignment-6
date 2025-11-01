@@ -62,7 +62,7 @@ const Faq = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       layout
-      className="pb-32 px-8 pt-10"
+      className="py-10 px-2 lg:px-8"
     >
       <div className="">
         <div className="mx-auto max-w-3xl text-center space-y-4">
@@ -81,7 +81,7 @@ const Faq = () => {
               value={item.id}
               className="border rounded-xl shadow-sm hover:shadow-md transition"
             >
-              <AccordionTrigger className="flex justify-between items-center p-4 text-lg font-medium text-left hover:bg-gray-50 rounded-xl transition">
+              <AccordionTrigger className="flex justify-between items-center p-4 text-lg font-medium text-left hover:bg-gray-50 dark:hover:bg-gray-950 rounded-xl transition">
                 <span>{item.question}</span>
               </AccordionTrigger>
               <AccordionContent className="px-4 pb-4 text-muted-foreground">

@@ -2,101 +2,131 @@ import { Button } from "@/components/ui/button"
 import {
     NavigationMenu,
     NavigationMenuItem,
-    NavigationMenuLink,
     NavigationMenuList,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
-import { ModeToggle } from "./ModeToggle"
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
+import { ModeToggle } from "./ModeToggle";
+import { Link, NavLink } from "react-router"
+import { role } from "@/constants/role"
+import BrandLogo from "./BrandLogo";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-    { href: "/", label: "Home", },
-    { href: "/about", label: "About" },
-    { href: "/features", label: "Features" },
-    { href: "/pricing", label: "Pricing" },
-    { href: "/contact", label: "Contact" },
-    { href: "/faq", label: "Faq" },
+    { href: "/", label: "Home", role: "PUBLIC" },
+    { href: "/about", label: "About", role: "PUBLIC" },
+    { href: "/features", label: "Features", role: "PUBLIC" },
+    { href: "/pricing", label: "Pricing", role: "PUBLIC" },
+    { href: "/contact", label: "Contact", role: "PUBLIC" },
+    { href: "/faq", label: "Faq", role: "PUBLIC" },
+    { href: "/user", label: "Dashboard", role: role.USER },
+    { href: "/admin", label: "Dashboard", role: role.ADMIN },
+    { href: "/agent", label: "Dashboard", role: role.AGENT },
 ]
 
 export default function Navbar() {
     return (
-        <header className="border-b px-4 md:px-6">
+        <header className="fixed top-0 left-0 right-0 z-50 
+  bg-gray-900/90 backdrop-blur-md border-b border-gray-700 px-4 md:px-6">
             <div className="flex h-16 items-center justify-between gap-4">
                 {/* Left side */}
                 <div className="flex items-center gap-2">
                     {/* Mobile menu trigger */}
-                    <Popover>
-                        <PopoverTrigger asChild>
+                    <Sheet>
+                        <SheetTrigger asChild>
                             <Button
-                                className="group size-8 md:hidden"
+                                className="md:hidden"
                                 variant="ghost"
                                 size="icon"
                             >
                                 <svg
-                                    className="pointer-events-none"
-                                    width={16}
-                                    height={16}
+                                    width="24"
+                                    height="24"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <path
-                                        d="M4 12L20 12"
-                                        className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-315"
-                                    />
-                                    <path
-                                        d="M4 12H20"
-                                        className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
-                                    />
-                                    <path
-                                        d="M4 12H20"
-                                        className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-135"
-                                    />
+                                    <line x1="3" y1="12" x2="21" y2="12" />
+                                    <line x1="3" y1="6" x2="21" y2="6" />
+                                    <line x1="3" y1="18" x2="21" y2="18" />
                                 </svg>
                             </Button>
-                        </PopoverTrigger>
-                        <PopoverContent align="start" className="w-36 p-1 md:hidden">
-                            <NavigationMenu className="max-w-none *:w-full">
-                                <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
-                                    {navigationLinks.map((link, index) => (
-                                        <NavigationMenuItem key={index} className="w-full">
-                                            <NavigationMenuLink
-                                                href={link.href}
-                                                className="py-1.5"
-                                            >
-                                                {link.label}
-                                            </NavigationMenuLink>
-                                        </NavigationMenuItem>
-                                    ))}
-                                </NavigationMenuList>
-                            </NavigationMenu>
-                        </PopoverContent>
-                    </Popover>
+                        </SheetTrigger>
+                        <SheetContent side="left" className="w-full h-full">
+                            <SheetHeader>
+                                <SheetTitle>
+                                    <BrandLogo />
+                                </SheetTitle>
+                                <SheetDescription>
+                                </SheetDescription>
+                            </SheetHeader>
+                            <div className="flex flex-col h-full">
+                                <nav className="flex flex-col items-center justify-center gap-3 text-lg font-medium">
+                                    {navigationLinks.map((link, index) => {
+                                        if (link.role === "PUBLIC") {
+                                            return (
+                                                <NavLink
+                                                    key={index}
+                                                    to={link.href}
+                                                    className={({ isActive }) =>
+                                                        isActive
+                                                            ? "text-primary font-semibold border-b-2 border-primary"
+                                                            : "text-accent-foreground hover:text-primary"
+                                                    }
+                                                >
+                                                    <SheetClose asChild>
+                                                        <span>{link.label}</span>
+                                                    </SheetClose>
+                                                </NavLink>
+                                            );
+                                        }
+                                        return null;
+                                    })}
+                                </nav>
+                            </div>
+                            <SheetFooter>
+                                <SheetClose asChild>
+                                    <Button className="cursor-pointer" size={"sm"}>Close</Button>
+                                </SheetClose>
+                            </SheetFooter>
+                        </SheetContent>
+                    </Sheet>
                     {/* Main nav */}
                     <div className="flex items-center gap-6">
-                        <a href="#" className="text-primary hover:text-primary/90">
-                        </a>
+                        <BrandLogo />
                         {/* Navigation menu */}
                         <NavigationMenu className="max-md:hidden">
-                            <NavigationMenuList className="gap-2">
-                                {navigationLinks.map((link, index) => (
-                                    <NavigationMenuItem key={index}>
-                                        <NavigationMenuLink
-                                            href={link.href}
-                                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                                        >
-                                            {link.label}
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                ))}
+                            <NavigationMenuList className="md:gap-4 lg:gap-7 2xl:gap-10">
+                                {navigationLinks.map((link, index) => {
+                                    if (link.role === 'PUBLIC' || link.role === 'PUBLIC') {
+                                        return (
+                                            <NavigationMenuItem key={index}>
+                                                <NavLink
+                                                    to={link.href}
+                                                    className={({ isActive }) =>
+                                                        isActive
+                                                            ? "text-white font-semibold border-b-2 border-white pb-1"
+                                                            : "text-gray-400 hover:text-white transition-colors pb-1"
+                                                    }
+                                                >
+                                                    {link.label}
+                                                </NavLink>
+                                            </NavigationMenuItem>
+                                        )
+                                    }
+                                    return null
+                                })}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
@@ -104,8 +134,15 @@ export default function Navbar() {
                 {/* Right side */}
                 <div className="flex items-center gap-2">
                     <ModeToggle />
-                    <Button asChild variant="ghost" size="sm" className="text-sm">
-                        <a href="#">Sign In</a>
+                    {/* <Button
+                        variant="outline"
+                        className="text-sm cursor-pointer"
+                    >
+                        Logout
+                    </Button> */}
+
+                    <Button asChild className="text-sm cursor-pointer">
+                        <Link to="/login">Login</Link>
                     </Button>
                 </div>
             </div>

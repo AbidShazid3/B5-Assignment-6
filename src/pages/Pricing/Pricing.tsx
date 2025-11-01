@@ -17,7 +17,7 @@ const Pricing = () => {
     ];
 
     return (
-        <section className="pb-32 px-8 pt-10">
+        <section className="py-10 px-2 lg:px-8">
 
             {/* Section Header */}
             <motion.div
