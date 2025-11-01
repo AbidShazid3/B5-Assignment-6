@@ -46,30 +46,60 @@ const Team = () => {
 
     return (
         <motion.section
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            layout
-            className="py-16 mb-20"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="py-16 px-4 sm:px-6 lg:px-8 bg-background"
         >
-            <div className="container mx-auto flex flex-col items-center text-center">
-                <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
+            {/* Heading */}
+            <div className="container mx-auto flex flex-col items-center text-center mb-12">
+                <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="text-3xl font-bold md:text-4xl tracking-tight"
+                >
                     {heading}
-                </h2>
-                <p className="text-muted-foreground mb-8 max-w-3xl lg:text-lg">
+                </motion.h2>
+
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="text-muted-foreground mt-4 max-w-2xl text-base md:text-lg leading-relaxed"
+                >
                     {description}
-                </p>
+                </motion.p>
             </div>
-            <div className="container mx-auto mt-16 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
-                {members.map((member) => (
-                    <div key={member.id} className="flex flex-col items-center">
-                        <Avatar className="mb-4 size-20 border md:mb-5 lg:size-24">
-                            <AvatarImage src={member.avatar} />
-                            <AvatarFallback>{member.name}</AvatarFallback>
+
+            {/* Team Members Grid */}
+            <div className="container mx-auto grid grid-cols-1 gap-y-12 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-10">
+                {members.map((member, index) => (
+                    <motion.div
+                        key={member.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{
+                            duration: 0.5,
+                            delay: index * 0.1,
+                            ease: "easeOut",
+                        }}
+                        viewport={{ once: true }}
+                        className="flex flex-col items-center text-center p-6 bg-card border border-border rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                    >
+                        <Avatar className="mb-4 size-20 md:size-24 border-2 border-muted overflow-hidden">
+                            <AvatarImage src={member.avatar} alt={member.name} />
+                            <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
                         </Avatar>
-                        <p className="text-center font-medium">{member.name}</p>
-                        <p className="text-muted-foreground text-center">{member.role}</p>
-                    </div>
+
+                        <p className="text-lg font-semibold text-foreground">
+                            {member.name}
+                        </p>
+                        <p className="text-muted-foreground text-sm md:text-base mt-1">
+                            {member.role}
+                        </p>
+                    </motion.div>
                 ))}
             </div>
         </motion.section>

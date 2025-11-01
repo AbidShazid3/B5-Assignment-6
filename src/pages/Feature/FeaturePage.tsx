@@ -1,5 +1,3 @@
-
-import PageTitle from "@/utils/PageTitle/PageTitle";
 import {
   DollarSign,
   MessagesSquare,
@@ -11,83 +9,92 @@ import {
 import { motion } from "motion/react";
 
 const FeaturePage = () => {
-     const heading = "Our Core Features";
+  const heading = "Our Core Features";
   const subheading = "DPay Features";
   const features = [
     {
       title: "Send Money",
       description:
-        "Users Can Send Money Another Users Easily When Another Users or Family Members Need Balance.",
-      icon: <Timer className="size-4 md:size-6" />,
+        "Send money instantly to other users or family members in just a few taps.",
+      icon: <Timer className="size-5 md:size-6" />,
     },
     {
       title: "Cash In",
       description:
-        "Users Can Cash In From Any Agent With Out Any Transaction Fee When his need.",
-      icon: <Zap className="size-4 md:size-6" />,
+        "Add balance easily from any authorized agent — no transaction fee required.",
+      icon: <Zap className="size-5 md:size-6" />,
     },
     {
       title: "Cash Out",
-      description: "Users Can Cash Out From An Agent When His Need.",
-      icon: <ZoomIn className="size-4 md:size-6" />,
+      description:
+        "Withdraw your balance anytime from nearby agents with secure verification.",
+      icon: <ZoomIn className="size-5 md:size-6" />,
     },
     {
-      title: "B2B",
+      title: "B2B Transfer",
       description:
-        "Agents Can B2B to grow his network another digipay agent with out any transaction fee.",
-      icon: <PersonStanding className="size-4 md:size-6" />,
+        "Agents can perform business-to-business transactions seamlessly, with zero fees.",
+      icon: <PersonStanding className="size-5 md:size-6" />,
     },
     {
       title: "Add Money",
       description:
-        "Users And Agent Can Add Money From Our Local Bank Distributor.",
-      icon: <DollarSign className="size-4 md:size-6" />,
+        "Easily add money from our trusted banking partners and distributors.",
+      icon: <DollarSign className="size-5 md:size-6" />,
     },
     {
       title: "Customer Support",
-      description: "Our Customer Service Open 24/7 When Your Need.",
-      icon: <MessagesSquare className="size-4 md:size-6" />,
+      description:
+        "24/7 support available to assist you with any service-related queries.",
+      icon: <MessagesSquare className="size-5 md:size-6" />,
     },
   ];
 
-    return (
-        <div>
-            <PageTitle title="DPay || Feature" />
-      <section className="py-20 px-8 md:px-0">
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          layout
-          className="container mx-auto max-w-7xl"
-        >
-          <p className="mb-4 text-xs text-muted-foreground md:pl-5">
-            {subheading}
-          </p>
-          <h2 className="text-3xl font-medium md:pl-5 lg:text-4xl">
-            {heading}
-          </h2>
-          <div className="mx-auto mt-6 grid gap-x-20 gap-y-8 md:grid-cols-2 md:gap-y-6 lg:mt-20">
-            {features.map((feature, idx) => (
-              <div className="flex gap-6 rounded-lg md:block md:p-5" key={idx}>
-                <span className="mb-8 flex size-10 shrink-0 items-center justify-center rounded-full bg-accent md:size-12">
-                  {feature.icon}
-                </span>
-                <div>
-                  <h3 className="font-medium md:mb-2 md:text-xl">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground md:text-base">
-                    {feature.description}
-                  </p>
-                </div>
+  return (
+    <section className="py-10 px-2 lg:px-8 bg-background">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="container mx-auto max-w-6xl text-center"
+      >
+        {/* Section Heading */}
+        <p className="text-sm uppercase tracking-wide text-primary/80 font-medium mb-2">
+          {subheading}
+        </p>
+        <h2 className="text-3xl font-bold md:text-4xl tracking-tight">
+          {heading}
+        </h2>
+
+        {/* Features Grid */}
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-5">
+          {features.map((feature, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.5,
+                delay: idx * 0.1,
+                ease: "easeOut",
+              }}
+              viewport={{ once: true }}
+              className="flex flex-col items-center text-center p-6 rounded-2xl border border-border bg-card shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 hover:cursor-pointer"
+            >
+              <div className="mb-4 flex items-center justify-center w-12 h-12 rounded-full bg-accent text-accent-foreground">
+                {feature.icon}
               </div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+              <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
-    );
+      </motion.div>
+    </section>
+  );
 };
 
 export default FeaturePage;
