@@ -5,8 +5,10 @@ import Faq from "@/pages/Faq/Faq";
 
 import FeaturePage from "@/pages/Feature/FeaturePage";
 import Homepage from "@/pages/Homepage/Homepage";
+import Login from "@/pages/Login/Login";
 import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing/Pricing";
+import Register from "@/pages/Register/Register";
 import { createBrowserRouter } from "react-router";
 
 
@@ -41,5 +43,13 @@ export const router = createBrowserRouter([
                 Component: Faq
             },
         ]
+    },
+    {
+        path: "/login",
+        Component: Login
+    },
+    {
+        path: "/register",
+        Component: Register
     },
 ])
