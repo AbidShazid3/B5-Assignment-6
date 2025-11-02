@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { role } from "@/constants/role";
+import { useRegisterMutation } from "@/redux/features/user/user.api";
+import { toast } from "sonner";
+import { handleApiError } from "@/utils/apiErrorHandler";
 
 
 const registerSchema = z.object({
@@ -15,6 +18,9 @@ const registerSchema = z.object({
         .string({ error: "Name must be string" })
         .min(2, { message: "Name must be at least 2 characters long." })
         .max(50, { message: "Name cannot exceed 50 characters." }),
+    email: z
+        .union([z.literal(""), z.email({ message: "Invalid email address" })])
+        .optional(),
     phone: z
         .string({ error: "Phone number is required" })
         .regex(/^(?:\+8801\d{9}|01\d{9})$/, {
@@ -42,12 +48,14 @@ export default function RegisterForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
-
+    const [register] = useRegisterMutation();
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
             name: "",
+            email: "",
             phone: "",
             password: "",
             role: undefined,
@@ -55,13 +63,24 @@ export default function RegisterForm({
     });
 
     const onSubmit = async (data: z.infer<typeof registerSchema>) => {
+        const toastId = toast.loading("Registering...");
         const newUser = {
             name: data.name,
+            email: data.email,
             phone: data.phone,
             password: data.password,
             role: data.role,
         };
-        console.log(newUser);
+        try {
+            const result = await register(newUser).unwrap();
+            console.log(result);
+            if (result.success) {
+                toast.success('User created successfully', { id: toastId });
+                navigate('/login');
+            }
+        } catch (error) {
+            handleApiError(error, toastId as string)
+        }
     };
 
     return (
@@ -93,6 +112,21 @@ export default function RegisterForm({
                             )}
                         />
 
+                        {/* Email (Optional) */}
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Email (Optional)</FormLabel>
+                                    <FormControl>
+                                        <Input type="email" placeholder="example@mail.com" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
                         {/* Phone */}
                         <FormField
                             control={form.control}
@@ -101,7 +135,7 @@ export default function RegisterForm({
                                 <FormItem>
                                     <FormLabel>Phone Number</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="+8801640310327" type="tel" {...field} />
+                                        <Input placeholder="+8801640310327" autoComplete="tel-national" type="tel" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -116,7 +150,7 @@ export default function RegisterForm({
                                 <FormItem>
                                     <FormLabel>Pin</FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="*******" {...field} />
+                                        <Input type="password" autoComplete="new-password" placeholder="*******" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

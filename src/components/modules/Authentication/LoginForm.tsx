@@ -1,11 +1,14 @@
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { toast } from "sonner";
+import { handleApiError } from "@/utils/apiErrorHandler";
 
 const loginSchema = z.object({
     phone: z
@@ -32,7 +35,8 @@ export default function LoginForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
-    // const navigate = useNavigate();
+    const [login] = useLoginMutation();
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -43,11 +47,20 @@ export default function LoginForm({
     });
 
     const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+        const toastId = toast.loading("Logging in...");
         const userInfo = {
             phone: data.phone,
             password: data.password,
         }
-        console.log(userInfo);
+        try {
+            const result = await login(userInfo);
+            if (result.data.success) {
+                toast.success('User logged in successfully', { id: toastId });
+                navigate('/');
+            }
+        } catch (error) {
+            handleApiError(error, toastId as string)
+        }
     }
 
     return (
@@ -69,7 +82,7 @@ export default function LoginForm({
                                     <FormLabel>Phone Number</FormLabel>
                                     <FormControl>
                                         <Input
-                                            placeholder="+8801640310327"
+                                            placeholder="01640310327"
                                             type="tel"
                                             autoComplete="tel" {...field} />
                                     </FormControl>
@@ -86,7 +99,7 @@ export default function LoginForm({
                                 <FormItem>
                                     <FormLabel>Your Pin</FormLabel>
                                     <FormControl>
-                                        <Input type="password" placeholder="*****" {...field} />
+                                        <Input type="password" autoComplete="current-password" placeholder="*****" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>

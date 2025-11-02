@@ -18,6 +18,11 @@ import { ModeToggle } from "./ModeToggle";
 import { Link, NavLink } from "react-router"
 import { role } from "@/constants/role"
 import BrandLogo from "./BrandLogo";
+import { useGetMeQuery } from "@/redux/features/user/user.api";
+import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { useAppDispatch } from "@/redux/hook";
+import { toast } from "sonner";
+import { Focus } from "lucide-react";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -33,9 +38,19 @@ const navigationLinks = [
 ]
 
 export default function Navbar() {
+    const { data, isLoading } = useGetMeQuery(undefined)
+    console.log(data?.data);
+    const [logout] = useLogoutMutation();
+    const dispatch = useAppDispatch();
+
+    const handleLogout = async () => {
+        await logout(undefined);
+        dispatch(authApi.util.resetApiState());
+        toast.success('Logout successfully');
+    }
+
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 
-  bg-gray-900/90 backdrop-blur-md border-b border-gray-700 px-4 md:px-6">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-md border-b border-gray-700 px-4">
             <div className="flex h-16 items-center justify-between gap-4">
                 {/* Left side */}
                 <div className="flex items-center gap-2">
@@ -74,7 +89,7 @@ export default function Navbar() {
                             <div className="flex flex-col h-full">
                                 <nav className="flex flex-col items-center justify-center gap-3 text-lg font-medium">
                                     {navigationLinks.map((link, index) => {
-                                        if (link.role === "PUBLIC") {
+                                        if (link.role === "PUBLIC" || link.role === data?.data?.role) {
                                             return (
                                                 <NavLink
                                                     key={index}
@@ -107,9 +122,9 @@ export default function Navbar() {
                         <BrandLogo />
                         {/* Navigation menu */}
                         <NavigationMenu className="max-md:hidden">
-                            <NavigationMenuList className="md:gap-4 lg:gap-7 2xl:gap-10">
+                            <NavigationMenuList className="md:gap-3 lg:gap-7 2xl:gap-10">
                                 {navigationLinks.map((link, index) => {
-                                    if (link.role === 'PUBLIC' || link.role === 'PUBLIC') {
+                                    if (link.role === "PUBLIC" || link.role === data?.data?.role) {
                                         return (
                                             <NavigationMenuItem key={index}>
                                                 <NavLink
@@ -134,16 +149,18 @@ export default function Navbar() {
                 {/* Right side */}
                 <div className="flex items-center gap-2">
                     <ModeToggle />
-                    {/* <Button
-                        variant="outline"
-                        className="text-sm cursor-pointer"
-                    >
-                        Logout
-                    </Button> */}
+                    {isLoading ? (
+                        <Focus className="animate-spin mx-auto text-white"/>
+                    ) : data?.data?.phone ? (
+                        <Button onClick={handleLogout} variant="outline" className="text-sm">
+                            Logout
+                        </Button>
+                    ) : (
+                        <Button asChild className="text-sm">
+                            <Link to="/login">Login</Link>
+                        </Button>
+                    )}
 
-                    <Button asChild className="text-sm cursor-pointer">
-                        <Link to="/login">Login</Link>
-                    </Button>
                 </div>
             </div>
         </header>
