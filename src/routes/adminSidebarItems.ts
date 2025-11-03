@@ -1,8 +1,10 @@
-import AdminChangePass from "@/pages/Dashboard/Admin/AdminChangePass";
-import AdminHome from "@/pages/Dashboard/Admin/AdminHome";
-import AdminUpdateProfile from "@/pages/Dashboard/Admin/AdminUpdateProfile";
-import AllUsers from "@/pages/Dashboard/Admin/AllUsers";
 import type { ISidebarItem } from "@/types";
+import { lazy } from "react";
+
+const AdminHome = lazy(() => import("@/pages/Dashboard/Admin/AdminHome"))
+const AdminUpdateProfile = lazy(() => import("@/pages/Dashboard/Admin/AdminUpdateProfile"))
+const AdminChangePass = lazy(() => import("@/pages/Dashboard/Admin/AdminChangePass"))
+const AllUsers = lazy(() => import("@/pages/Dashboard/Admin/AllUsers"))
 
 export const adminSidebarItems: ISidebarItem[] = [
     {

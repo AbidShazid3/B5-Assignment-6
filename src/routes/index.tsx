@@ -11,10 +11,13 @@ import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing/Pricing";
 import Register from "@/pages/Register/Register";
 import { generateRoutes } from "@/utils/generateRoutes";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
 import { agentSidebarItems } from "./agentSidebarItems";
 import { userSidebarItems } from "./userSidebarItems";
+import { withAuth } from "@/utils/withAuth";
+import { role } from "@/constants/role";
+import type { TRole } from "@/types";
 
 
 export const router = createBrowserRouter([
@@ -51,8 +54,8 @@ export const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        Component: DashboardLayout,
-        children: [...generateRoutes(adminSidebarItems)]
+        Component: withAuth(DashboardLayout, role.ADMIN as TRole),
+        children: [{ index: true, element: <Navigate to={"/admin/dashboard"} /> }, ...generateRoutes(adminSidebarItems)]
     },
     {
         path: "/agent",

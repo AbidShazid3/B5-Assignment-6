@@ -1,6 +1,7 @@
-import AgentHome from "@/pages/Dashboard/Agent/AgentHome";
 import type { ISidebarItem } from "@/types";
+import { lazy } from "react";
 
+const AgentHome = lazy(() => import("@/pages/Dashboard/Agent/AgentHome"))
 
 export const agentSidebarItems: ISidebarItem[] = [
     {

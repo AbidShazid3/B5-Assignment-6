@@ -1,6 +1,7 @@
-import UserHome from "@/pages/Dashboard/User/UserHome";
 import type { ISidebarItem } from "@/types";
+import { lazy } from "react";
 
+const UserHome = lazy(() => import("@/pages/Dashboard/User/UserHome"))
 
 export const userSidebarItems: ISidebarItem[] = [
     {
