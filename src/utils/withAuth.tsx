@@ -1,3 +1,4 @@
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
 import type { TRole } from "@/types";
 import type { ComponentType } from "react";
@@ -7,7 +8,7 @@ export const withAuth = (Component: ComponentType, requiredRole?: TRole) => {
     return function AuthWrapper() {
         const { data, isLoading } = useGetMeQuery(undefined);
         if (isLoading) {
-            return <div>Loading...</div>
+            return <LoadingSpinner/>
         }
 
         if (!isLoading && !data?.data?.phone) {

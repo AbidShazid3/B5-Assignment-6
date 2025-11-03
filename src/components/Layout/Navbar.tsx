@@ -23,6 +23,7 @@ import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { toast } from "sonner";
 import { Focus } from "lucide-react";
+import { handleApiError } from "@/utils/apiErrorHandler";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -43,9 +44,17 @@ export default function Navbar() {
     const dispatch = useAppDispatch();
 
     const handleLogout = async () => {
-        await logout(undefined);
-        dispatch(authApi.util.resetApiState());
-        toast.success('Logout successfully');
+        const toastId = toast.loading("Logout...");
+        try {
+            const result = await logout(undefined);
+            if (result.data?.success) {
+                dispatch(authApi.util.resetApiState());
+                toast.success('Logout successfully',{ id: toastId });
+            }
+
+        } catch (error) {
+            handleApiError(error, toastId as string)
+        }
     }
 
     return (
@@ -149,7 +158,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-2">
                     <ModeToggle />
                     {isLoading ? (
-                        <Focus className="animate-spin mx-auto text-white"/>
+                        <Focus className="animate-spin mx-auto text-white" />
                     ) : data?.data?.phone ? (
                         <Button onClick={handleLogout} variant="outline" className="text-sm cursor-pointer">
                             Logout
