@@ -38,8 +38,7 @@ const navigationLinks = [
 ]
 
 export default function Navbar() {
-    const { data, isLoading } = useGetMeQuery(undefined)
-    console.log(data?.data);
+    const { data, isLoading } = useGetMeQuery(undefined);
     const [logout] = useLogoutMutation();
     const dispatch = useAppDispatch();
 
@@ -152,7 +151,7 @@ export default function Navbar() {
                     {isLoading ? (
                         <Focus className="animate-spin mx-auto text-white"/>
                     ) : data?.data?.phone ? (
-                        <Button onClick={handleLogout} variant="outline" className="text-sm">
+                        <Button onClick={handleLogout} variant="outline" className="text-sm cursor-pointer">
                             Logout
                         </Button>
                     ) : (
