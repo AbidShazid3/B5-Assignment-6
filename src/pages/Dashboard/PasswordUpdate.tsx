@@ -23,7 +23,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import Password from "@/components/Password";
 
 const updatePasswordSchema = z.object({
     oldPassword: z
@@ -75,7 +75,8 @@ const PasswordUpdate = () => {
         try {
             const result = await resetPassword(passwordInfo).unwrap();
             if (result.success) {
-                toast.success("Profile Updated Successfully.", { id: toastId });
+                toast.success("Password Updated Successfully.", { id: toastId });
+                form.reset();
             }
         } catch (error) {
             handleApiError(error, toastId as string)
@@ -99,7 +100,7 @@ const PasswordUpdate = () => {
                                 <FormItem>
                                     <FormLabel>Old Password</FormLabel>
                                     <FormControl>
-                                        <Input type="" placeholder="Your Name" {...field} />
+                                        <Password {...field} />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
@@ -114,7 +115,7 @@ const PasswordUpdate = () => {
                                 <FormItem>
                                     <FormLabel>New Password</FormLabel>
                                     <FormControl>
-                                        <Input type="" placeholder="Your Email" {...field} />
+                                        <Password {...field} />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>

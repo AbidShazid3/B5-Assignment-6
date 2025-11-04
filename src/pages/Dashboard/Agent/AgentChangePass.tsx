@@ -1,9 +1,10 @@
+import PasswordUpdate from "../PasswordUpdate";
 
 
 const AgentChangePass = () => {
     return (
-        <div>
-            <h1>agent pass change</h1>
+        <div className="min-h-[calc(100vh-100px)] flex items-center justify-center">
+            <PasswordUpdate />
         </div>
     );
 };
