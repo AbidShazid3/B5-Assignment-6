@@ -1,3 +1,5 @@
+import UserChangePass from "@/pages/Dashboard/User/UserChangePass";
+import UserUpdateProfile from "@/pages/Dashboard/User/UserUpdateProfile";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -12,16 +14,16 @@ export const userSidebarItems: ISidebarItem[] = [
                 url: "/user/dashboard",
                 component: UserHome,
             },
-            // {
-            //     title: "Update Profile",
-            //     url: "/user/update-profile",
-            //     component: ,
-            // },
-            // {
-            //     title: "Update Password",
-            //     url: "/user/update-password",
-            //     component: ,
-            // },
+            {
+                title: "Update Profile",
+                url: "/user/update-profile",
+                component: UserUpdateProfile,
+            },
+            {
+                title: "Update Password",
+                url: "/user/update-password",
+                component: UserChangePass,
+            },
         ],
     },
 ]

@@ -1,7 +1,7 @@
 import ProfileUpdate from "../ProfileUpdate";
 
 
-const AdminUpdateProfile = () => {
+const UserUpdateProfile = () => {
     return (
         <div>
             <ProfileUpdate/>
@@ -9,4 +9,4 @@ const AdminUpdateProfile = () => {
     );
 };
 
-export default AdminUpdateProfile;
+export default UserUpdateProfile;
