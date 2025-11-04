@@ -1,9 +1,10 @@
+import MyProfileData from "../MyProfileData";
 
 
 const AdminHome = () => {
     return (
-        <div>
-            <h1>admin Dashboard home</h1>
+        <div className="p-4">
+            <MyProfileData />
         </div>
     );
 };

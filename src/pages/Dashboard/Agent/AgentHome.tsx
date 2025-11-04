@@ -1,9 +1,10 @@
+import MyProfileData from "../MyProfileData";
 
 
 const AgentHome = () => {
     return (
-        <div>
-            <h1>agent Dashboard home</h1>
+        <div className="p-4">
+            <MyProfileData />
         </div>
     );
 };
