@@ -1,4 +1,4 @@
-import { useGetAllUserQuery } from "@/redux/features/admin/admin.api";
+import { useGetAllAgentQuery } from "@/redux/features/admin/admin.api";
 import {
     Table,
     TableBody,
@@ -10,12 +10,12 @@ import {
 import type { IUser } from "@/types";
 import { Button } from "@/components/ui/button";
 
-const AllUsers = () => {
-    const { data: userData } = useGetAllUserQuery(undefined);
+const AllAgent = () => {
+    const { data: agentData } = useGetAllAgentQuery(undefined);
     return (
         <div>
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between space-y-5 md:space-y-0">
-                <h1 className="text-2xl lg:text-3xl font-medium">Total users : {userData?.data?.length}</h1>
+                <h1 className="text-2xl lg:text-3xl font-medium">Total Agents : {agentData?.data?.length}</h1>
 
             </div>
             <div className="overflow-hidden rounded-md border mt-5">
@@ -32,7 +32,7 @@ const AllUsers = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {userData?.data?.map((user: IUser, idx: number) => (
+                        {agentData?.data?.map((user: IUser, idx: number) => (
                             <TableRow key={user._id}>
                                 <TableCell className="font-medium">{idx + 1}</TableCell>
                                 <TableHead>{user?.name}</TableHead>
@@ -52,4 +52,4 @@ const AllUsers = () => {
     );
 };
 
-export default AllUsers;
+export default AllAgent;

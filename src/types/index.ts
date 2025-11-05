@@ -49,3 +49,37 @@ export interface IErrorResponse {
   };
   stack?: string;
 }
+
+export type TStatus = "ACTIVE" | "PENDING" | "BLOCKED";
+export type TWalletStatus = "ACTIVE" | "BLOCKED";
+
+export interface IUser {
+  _id: string;
+  name: string;
+  phone: string;
+  password: string;
+  role: TRole;
+  status: TStatus;
+  auths: string[];
+  createdAt: string;
+  updatedAt: string;
+  wallet: string;
+  address: string;
+  email: string;
+}
+
+export interface TWalletUser {
+  _id: string;
+  name: string;
+  phone: string;
+  role: TRole;
+}
+
+export interface TWallet {
+  _id: string;
+  user: TWalletUser;
+  balance: number;
+  status: TWalletStatus;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -1,4 +1,3 @@
-import { useGetAllUserQuery } from "@/redux/features/admin/admin.api";
 import {
     Table,
     TableBody,
@@ -7,15 +6,16 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import type { IUser } from "@/types";
 import { Button } from "@/components/ui/button";
+import { useGetAllWalletQuery } from "@/redux/features/admin/admin.api";
+import type { TWallet } from "@/types";
 
-const AllUsers = () => {
-    const { data: userData } = useGetAllUserQuery(undefined);
+const AllWallet = () => {
+    const { data: walletData } = useGetAllWalletQuery(undefined);
     return (
         <div>
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between space-y-5 md:space-y-0">
-                <h1 className="text-2xl lg:text-3xl font-medium">Total users : {userData?.data?.length}</h1>
+                <h1 className="text-2xl lg:text-3xl font-medium">Total Agents : {walletData?.data?.length}</h1>
 
             </div>
             <div className="overflow-hidden rounded-md border mt-5">
@@ -25,21 +25,21 @@ const AllUsers = () => {
                             <TableHead className="w-[100px]">Serial</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Phone</TableHead>
-                            <TableHead>Email</TableHead>
                             <TableHead>Role</TableHead>
                             <TableHead>Status</TableHead>
+                            <TableHead>Balance</TableHead>
                             <TableHead className="text-right">Status</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {userData?.data?.map((user: IUser, idx: number) => (
-                            <TableRow key={user._id}>
+                        {walletData?.data?.map((wallet: TWallet, idx: number) => (
+                            <TableRow key={wallet._id}>
                                 <TableCell className="font-medium">{idx + 1}</TableCell>
-                                <TableHead>{user?.name}</TableHead>
-                                <TableHead>{user?.phone}</TableHead>
-                                <TableHead>{user?.email || "Null"}</TableHead>
-                                <TableHead>{user?.role}</TableHead>
-                                <TableCell >{user?.status}</TableCell>
+                                <TableHead>{wallet?.user?.name}</TableHead>
+                                <TableHead>{wallet?.user?.phone}</TableHead>
+                                <TableHead>{wallet?.user?.role}</TableHead>
+                                <TableCell >{wallet?.status}</TableCell>
+                                <TableCell >{wallet?.balance}</TableCell>
                                 <TableCell className="text-right">
                                     <Button className="cursor-pointer" size={"sm"}>Details</Button>
                                 </TableCell>
@@ -52,4 +52,4 @@ const AllUsers = () => {
     );
 };
 
-export default AllUsers;
+export default AllWallet;
