@@ -37,7 +37,15 @@ export const adminApi = baseApi.injectEndpoints({
                 data: status,
             }),
             invalidatesTags: ['USER'],
-        })
+        }),
+        updateWalletStatus: builder.mutation({
+            query: ({ id, status }) => ({
+                url: `/admin/wallets/status/${id}`,
+                method: "PATCH",
+                data: status,
+            }),
+            invalidatesTags: ['USER'],
+        }),
     })
 })
 
@@ -46,4 +54,5 @@ export const { useGetAllUserQuery,
     useGetAllWalletQuery,
     useGetAllTransactionQuery,
     useUpdateUserStatusMutation,
+    useUpdateWalletStatusMutation,
 } = adminApi

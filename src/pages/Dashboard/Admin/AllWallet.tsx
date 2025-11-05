@@ -5,13 +5,41 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useGetAllWalletQuery } from "@/redux/features/admin/admin.api";
-import type { TWallet } from "@/types";
+import { useGetAllWalletQuery, useUpdateWalletStatusMutation } from "@/redux/features/admin/admin.api";
+import type { TWallet, TWalletStatus } from "@/types";
+import { toast } from "sonner";
+import { handleApiError } from "@/utils/apiErrorHandler";
 
 const AllWallet = () => {
     const { data: walletData } = useGetAllWalletQuery(undefined);
+    const [updateWallet] = useUpdateWalletStatusMutation();
+
+    const handleChange = async (newStatus: TWalletStatus, id: string) => {
+        const toastId = toast.loading("Status updating ......");
+        const walletStatus = {
+            status: newStatus
+        }
+
+        try {
+            const result = await updateWallet({ id, status: walletStatus }).unwrap();
+
+            if (result.success) {
+                toast.success("Status Updated Successfully.", { id: toastId });
+            }
+        } catch (error) {
+            handleApiError(error, toastId as string);
+        }
+    }
+
     return (
         <div>
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-between space-y-5 md:space-y-0">
@@ -38,7 +66,23 @@ const AllWallet = () => {
                                 <TableHead>{wallet?.user?.name}</TableHead>
                                 <TableHead>{wallet?.user?.phone}</TableHead>
                                 <TableHead>{wallet?.user?.role}</TableHead>
-                                <TableCell >{wallet?.status}</TableCell>
+                                <TableCell >
+                                    <Select
+                                        defaultValue={wallet?.status}
+                                        onValueChange={(value) => handleChange(value as TWalletStatus, wallet?._id)}
+                                    >
+                                        <SelectTrigger
+                                            className={`w-[130px] border-2 
+                                                ${wallet?.status === "ACTIVE" ? "border-green-500" : "border-red-500"}`}
+                                        >
+                                            <SelectValue placeholder="Select status" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="ACTIVE">✅ Active</SelectItem>
+                                            <SelectItem value="BLOCKED">🚫 Blocked</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </TableCell>
                                 <TableCell >{wallet?.balance}</TableCell>
                                 <TableCell className="text-right">
                                     <Button className="cursor-pointer" size={"sm"}>Details</Button>
