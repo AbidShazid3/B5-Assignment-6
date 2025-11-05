@@ -5,7 +5,7 @@ import { Mail, Phone, User, Wallet } from "lucide-react";
 const MyProfileData = () => {
     const { data: userData } = useGetMeQuery(undefined);
     return (
-        <div className="relative w-full max-w-sm p-6 rounded-3xl bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-blue-300 dark:border-blue-500/40 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 group overflow-hidden">
+        <div className="relative w-full max-w-lg p-6 rounded-3xl bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg border border-blue-300 dark:border-blue-500/40 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 group overflow-hidden">
 
             {/* Animated Gradient Blobs */}
             <div className="absolute -top-16 -left-16 w-40 h-40 rounded-full bg-linear-to-r from-blue-300 via-purple-300 to-pink-300 opacity-20 blur-3xl animate-blob animation-delay-2000"></div>

@@ -1,10 +1,10 @@
-import MyProfileData from "../MyProfileData";
+import AccountAction from "../AccountAction/AccountAction";
 
 
 const UserHome = () => {
     return (
-        <div className="p-4">
-            <MyProfileData/>
+        <div>
+            <AccountAction/>
         </div>
     );
 };
