@@ -7,29 +7,37 @@ export const adminApi = baseApi.injectEndpoints({
                 url: "/admin/users",
                 method: "GET",
             }),
-            providesTags: ['USER', 'ADMIN'],
+            providesTags: ['USER'],
         }),
         getAllAgent: builder.query({
             query: () => ({
                 url: "/admin/agents",
                 method: "GET",
             }),
-            providesTags: ['USER', 'ADMIN'],
+            providesTags: ['USER'],
         }),
         getAllWallet: builder.query({
             query: () => ({
                 url: "/admin/wallets",
                 method: "GET",
             }),
-            providesTags: ['USER', 'ADMIN'],
+            providesTags: ['USER'],
         }),
         getAllTransaction: builder.query({
             query: () => ({
                 url: "/admin/transactions",
                 method: "GET",
             }),
-            providesTags: ['USER', 'ADMIN'],
+            providesTags: ['USER'],
         }),
+        updateUserStatus: builder.mutation({
+            query: ({ id, status }) => ({
+                url: `/admin/status/${id}`,
+                method: "PATCH",
+                data: status,
+            }),
+            invalidatesTags: ['USER'],
+        })
     })
 })
 
@@ -37,4 +45,5 @@ export const { useGetAllUserQuery,
     useGetAllAgentQuery,
     useGetAllWalletQuery,
     useGetAllTransactionQuery,
+    useUpdateUserStatusMutation,
 } = adminApi
