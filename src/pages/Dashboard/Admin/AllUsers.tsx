@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { handleApiError } from "@/utils/apiErrorHandler";
 import { useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
+import UserDetailsModal from "@/components/modules/UserDetailsModal";
 
 const AllUsers = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -250,9 +251,7 @@ const AllUsers = () => {
                                         </Select>
                                     </TableCell>
                                     <TableCell className="text-right">
-                                        <Button className="cursor-pointer" size={"sm"}>
-                                            Details
-                                        </Button>
+                                        <UserDetailsModal userId={user?._id} />
                                     </TableCell>
                                 </TableRow>
                             ))}

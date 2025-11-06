@@ -18,9 +18,10 @@ export const userApi = baseApi.injectEndpoints({
             providesTags: ['USER'],
         }),
         getSingleUser: builder.query({
-            query: (id) => ({
+            query: ({id, data}) => ({
                 url: `/user/${id}`,
                 method: "GET",
+                data
             }),
             providesTags: ['USER'],
         }),

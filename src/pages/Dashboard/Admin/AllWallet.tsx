@@ -172,8 +172,7 @@ const AllWallet = () => {
                             <TableHead>Phone</TableHead>
                             <TableHead>Role</TableHead>
                             <TableHead>Status</TableHead>
-                            <TableHead>Balance</TableHead>
-                            <TableHead className="text-right">Status</TableHead>
+                            <TableHead className="text-right">Balance</TableHead>
                         </TableRow>
                     </TableHeader>
                     {!isLoading && isError && (
@@ -224,10 +223,7 @@ const AllWallet = () => {
                                             </SelectContent>
                                         </Select>
                                     </TableCell>
-                                    <TableCell >{wallet?.balance}</TableCell>
-                                    <TableCell className="text-right">
-                                        <Button className="cursor-pointer" size={"sm"}>Details</Button>
-                                    </TableCell>
+                                    <TableCell className="text-right">{wallet?.balance}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
