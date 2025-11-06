@@ -52,6 +52,9 @@ export interface IErrorResponse {
 
 export type TStatus = "ACTIVE" | "PENDING" | "BLOCKED";
 export type TWalletStatus = "ACTIVE" | "BLOCKED";
+export type TransactionType = "SEND" | "WITHDRAW" | "TOP_UP" | "CASH_IN" | "CASH_OUT";
+export type TransactionStatus = "PENDING" | "COMPLETED" | "REVERSED";
+export type Direction = "SENT" | "RECEIVED";
 
 export interface IUser {
   _id: string;
@@ -80,6 +83,24 @@ export interface TWallet {
   user: TWalletUser;
   balance: number;
   status: TWalletStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IWalletInfo {
+  _id: string;
+  user: TWalletUser;
+}
+
+export interface ITransaction {
+  _id: string;
+  from: IWalletInfo | null;
+  to: IWalletInfo | null;
+  amount: number;
+  fee: number;
+  type: TransactionType;
+  status: TransactionStatus;
+  direction: Direction;
   createdAt: string;
   updatedAt: string;
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     Select,
     SelectContent,
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { useGetMyTransactionQuery } from "@/redux/features/transaction.api";
+import type { ITransaction } from "@/types";
 
 const TransactionTable = () => {
     const { data } = useGetMyTransactionQuery(undefined)
@@ -57,7 +57,7 @@ const TransactionTable = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data?.data?.map((tnx: any, idx: number) => (
+                        {data?.data?.map((tnx: ITransaction, idx: number) => (
                             <TableRow key={tnx._id}>
                                 <TableCell className="font-medium">{idx +1}</TableCell>
                                 <TableHead>
