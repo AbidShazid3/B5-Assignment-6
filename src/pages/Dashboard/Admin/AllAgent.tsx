@@ -72,7 +72,7 @@ const AllAgent = () => {
                 {/* Header Section */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <h1 className="text-2xl lg:text-3xl font-medium text-center md:text-left">
-                        Total users: {agentData?.meta?.total}
+                        Total Agent: {agentData?.meta?.total}
                     </h1>
                 </div>
 

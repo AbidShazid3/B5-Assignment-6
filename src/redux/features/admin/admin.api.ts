@@ -19,9 +19,10 @@ export const adminApi = baseApi.injectEndpoints({
             providesTags: ['USER'],
         }),
         getAllWallet: builder.query({
-            query: () => ({
+            query: (params) => ({
                 url: "/admin/wallets",
                 method: "GET",
+                params: params
             }),
             providesTags: ['USER'],
         }),
