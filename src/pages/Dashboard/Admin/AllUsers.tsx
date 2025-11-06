@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllUserQuery, useUpdateUserStatusMutation } from "@/redux/features/admin/admin.api";
 import {
     Table,
@@ -35,8 +36,12 @@ const AllUsers = () => {
     const [limit, setLimit] = useState<number>(Number(searchParams.get('limit')) || 10);
     const [sort, setSort] = useState<string>(searchParams.get('sort') || "-createdAt");
     const [search, setSearch] = useState("");
+    const [status, setStatus] = useState("ALL");
 
-    const { data: userData, isLoading, isError } = useGetAllUserQuery({ page: currentPage, limit, sort, searchTerm: search });
+    const query: Record<string, any> = { page: currentPage, limit, sort, searchTerm: search };
+    if (status && status !== "ALL") query.status = status;
+
+    const { data: userData, isLoading, isError } = useGetAllUserQuery(query);
     const [updateStatus] = useUpdateUserStatusMutation();
     const totalPage = userData?.meta?.totalPage || 1;
 
@@ -73,7 +78,7 @@ const AllUsers = () => {
                 </div>
 
                 {/* Controls Section */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5 items-center">
 
                     {/* Search */}
                     <div>
@@ -87,6 +92,28 @@ const AllUsers = () => {
                             }}
                             className="w-full border rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary"
                         />
+                    </div>
+
+                    {/* filter by status */}
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm font-semibold whitespace-nowrap">Filter:</span>
+                        <Select
+                            value={status}
+                            onValueChange={(value) => {
+                                setStatus(value);
+                                setCurrentPage(1);
+                            }}
+                        >
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select status" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="ALL">All</SelectItem>
+                                <SelectItem value="ACTIVE">Active</SelectItem>
+                                <SelectItem value="BLOCKED">Blocked</SelectItem>
+                                <SelectItem value="PENDING">Pending</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
 
                     {/* Sort */}
@@ -143,6 +170,7 @@ const AllUsers = () => {
                                 setSort("-createdAt");
                                 setLimit(10);
                                 setSearch("");
+                                setStatus("ALL");
                                 setCurrentPage(1);
                             }}
                         >
