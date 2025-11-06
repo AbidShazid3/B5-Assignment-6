@@ -3,16 +3,18 @@ import { baseApi } from "@/redux/baseApi";
 export const adminApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllUser: builder.query({
-            query: () => ({
+            query: (params) => ({
                 url: "/admin/users",
                 method: "GET",
+                params: params
             }),
             providesTags: ['USER'],
         }),
         getAllAgent: builder.query({
-            query: () => ({
+            query: (params) => ({
                 url: "/admin/agents",
                 method: "GET",
+                params: params
             }),
             providesTags: ['USER'],
         }),
