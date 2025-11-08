@@ -17,10 +17,19 @@ export const walletApi = baseApi.injectEndpoints({
                 data: data,
             }),
             invalidatesTags: ['USER'],
+        }),
+        sendMoney: builder.mutation({
+            query: (data) => ({
+                url: "/wallet/send-money",
+                method: "POST",
+                data: data,
+            }),
+            invalidatesTags: ['USER'],
         })
     })
 })
 
-export const { useAddMoneyMutation, 
+export const { useAddMoneyMutation,
     useWithdrawMoneyMutation,
+    useSendMoneyMutation,
 } = walletApi

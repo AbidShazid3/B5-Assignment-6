@@ -79,64 +79,62 @@ const WithdrawMoneyModal = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <form>
-                <DialogTrigger asChild>
-                    <button className="flex flex-col items-center justify-center bg-yellow-200 text-gray-900 rounded-2xl p-4 hover:bg-yellow-300 hover:scale-105 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg group w-full cursor-pointer">
-                        <WalletMinimal
-                            size={50}
-                            className="text-gray-900 mb-3 group-hover:translate-y-1 transition-transform duration-300"
+            <DialogTrigger asChild>
+                <button className="flex flex-col items-center justify-center bg-yellow-200 text-gray-900 rounded-2xl p-4 hover:bg-yellow-300 hover:scale-105 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg group w-full cursor-pointer">
+                    <WalletMinimal
+                        size={50}
+                        className="text-gray-900 mb-3 group-hover:translate-y-1 transition-transform duration-300"
+                    />
+                    <span className="font-semibold text-base">Self Withdraw</span>
+                </button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Withdraw Money</DialogTitle>
+                    <DialogDescription>
+                    </DialogDescription>
+                </DialogHeader>
+                <Form {...form}>
+                    <form id='withdraw-money' onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                        <FormField
+                            control={form.control}
+                            name="amount"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Amount</FormLabel>
+                                    <FormControl>
+                                        <Input type="number" placeholder="Positive Amount" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                        <span className="font-semibold text-base">Self Withdraw</span>
-                    </button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Withdraw Money</DialogTitle>
-                        <DialogDescription>
-                        </DialogDescription>
-                    </DialogHeader>
-                    <Form {...form}>
-                        <form id='withdraw-money' onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                            <FormField
-                                control={form.control}
-                                name="amount"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Amount</FormLabel>
-                                        <FormControl>
-                                            <Input placeholder="Positive Amount" {...field} />
-                                        </FormControl>
-                                        <FormDescription>
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                            <Password {...field} />
-                                        </FormControl>
-                                        <FormDescription>
-                                        </FormDescription>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </form>
-                    </Form>
-                    <DialogFooter>
-                        <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
-                        </DialogClose>
-                        <Button form="withdraw-money" type="submit" className="cursor-pointer">Submit</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </form>
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password</FormLabel>
+                                    <FormControl>
+                                        <Password {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </form>
+                </Form>
+                <DialogFooter>
+                    <DialogClose asChild>
+                        <Button variant="outline">Cancel</Button>
+                    </DialogClose>
+                    <Button form="withdraw-money" type="submit" className="cursor-pointer">Submit</Button>
+                </DialogFooter>
+            </DialogContent>
         </Dialog>
     );
 };

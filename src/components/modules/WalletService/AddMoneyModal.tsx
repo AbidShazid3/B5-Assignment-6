@@ -103,7 +103,7 @@ const AddMoneyModal = () => {
                                 <FormItem>
                                     <FormLabel>Amount</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Positive Amount" {...field} />
+                                        <Input type="number" placeholder="Positive Amount" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
