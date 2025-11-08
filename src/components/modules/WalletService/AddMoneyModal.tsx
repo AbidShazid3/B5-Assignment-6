@@ -68,7 +68,7 @@ const AddMoneyModal = () => {
         try {
             const res = await addMoney(addMoneyData).unwrap();
             if (res.success) {
-                toast.success("Tour Type create successfully", { id: toastId });
+                toast.success("Money Added successfully", { id: toastId });
                 setOpen(false);
                 form.reset();
             }
