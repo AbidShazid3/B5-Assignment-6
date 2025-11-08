@@ -101,7 +101,7 @@ const AddMoneyModal = () => {
                             name="amount"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Amount</FormLabel>
+                                    <FormLabel>Amount (min 20)</FormLabel>
                                     <FormControl>
                                         <Input type="number" placeholder="Positive Amount" {...field} />
                                     </FormControl>
@@ -130,7 +130,7 @@ const AddMoneyModal = () => {
                 </Form>
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button variant="outline">Cancel</Button>
+                        <Button variant="outline" className="cursor-pointer">Cancel</Button>
                     </DialogClose>
                     <Button form="add-money" type="submit" className="cursor-pointer">Submit</Button>
                 </DialogFooter>

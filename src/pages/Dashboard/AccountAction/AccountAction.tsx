@@ -2,11 +2,14 @@ import MyProfileData from "../MyProfileData";
 import TransactionTable from "@/components/TransactionTable/TransactionTable";
 import UserAction from "../User/UserAction";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
+import { role } from "@/constants/role";
+import AgentAction from "../Agent/AgentAction";
+import AdminAction from "../Admin/AdminAction";
 
 
 const AccountAction = () => {
     const { data: userData } = useGetMeQuery(undefined);
-    console.log(userData?.data?.role);
+    const activeRole = userData?.data?.role;
 
     return (
         <div>
@@ -20,12 +23,14 @@ const AccountAction = () => {
 
                     {/* Buttons Grid */}
                     <div>
-                        <UserAction/>
+                        {activeRole === role.USER && (<UserAction />)}
+                        {activeRole === role.AGENT && (<AgentAction />)}
+                        {activeRole === role.ADMIN && (<AdminAction/>)}
                     </div>
                 </div>
             </div>
             <div>
-                <TransactionTable/>
+                <TransactionTable />
             </div>
         </div>
     );

@@ -18,18 +18,18 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input"
-import { useSendMoneyMutation } from "@/redux/features/wallet/wallet.api";
+import { useCashInMutation } from "@/redux/features/wallet/wallet.api";
 import { handleApiError } from "@/utils/apiErrorHandler";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowDownCircle } from "lucide-react";
+import { ArrowDownIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
-const sendMoneySchema = z.object({
+const cashInSchema = z.object({
     receiverPhone: z
         .string({ error: "Phone number is required" })
         .regex(/^(?:\+8801\d{9}|01\d{9})$/, {
@@ -52,12 +52,12 @@ const sendMoneySchema = z.object({
         }),
 })
 
-const SendMoneyModal = () => {
+const CashInModal = () => {
     const [open, setOpen] = useState(false);
-    const [sendMoney] = useSendMoneyMutation();
+    const [cashIn] = useCashInMutation();
 
-    const form = useForm<z.infer<typeof sendMoneySchema>>({
-        resolver: zodResolver(sendMoneySchema),
+    const form = useForm<z.infer<typeof cashInSchema>>({
+        resolver: zodResolver(cashInSchema),
         defaultValues: {
             receiverPhone: "",
             amount: "",
@@ -65,16 +65,16 @@ const SendMoneyModal = () => {
         },
     })
 
-    const onSubmit = async (data: z.infer<typeof sendMoneySchema>) => {
-        const toastId = toast.loading('sending...')
-        const sendMoneyData = {
+    const onSubmit = async (data: z.infer<typeof cashInSchema>) => {
+        const toastId = toast.loading('Cash In...')
+        const cahInData = {
             ...data,
             amount: Number(data.amount)
         }
         try {
-            const res = await sendMoney(sendMoneyData).unwrap();
+            const res = await cashIn(cahInData).unwrap();
             if (res.success) {
-                toast.success("Money send successfully", { id: toastId });
+                toast.success("Cash In successfully", { id: toastId });
                 setOpen(false);
                 form.reset();
             }
@@ -85,23 +85,24 @@ const SendMoneyModal = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
+
             <DialogTrigger asChild>
                 <button className="flex flex-col items-center justify-center bg-yellow-200 text-gray-900 rounded-2xl p-4 hover:bg-yellow-300 hover:scale-105 active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg group w-full cursor-pointer">
-                    <ArrowDownCircle
+                    <ArrowDownIcon
                         size={50}
-                        className="text-gray-900 mb-3 group-hover:translate-y-1 transition-transform duration-300"
+                        className="text-gray-900 mb-3 group-hover:-translate-y-1 transition-transform duration-300"
                     />
-                    <span className="font-semibold text-base">Send Money</span>
+                    <span className="font-semibold text-base">Cash In</span>
                 </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Send Money</DialogTitle>
+                    <DialogTitle>Cash In</DialogTitle>
                     <DialogDescription>
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
-                    <form id='send-money' onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <form id='cash-out' onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
                             control={form.control}
                             name="receiverPhone"
@@ -122,7 +123,7 @@ const SendMoneyModal = () => {
                             name="amount"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Amount (min 20)</FormLabel>
+                                    <FormLabel>Amount (min 50)</FormLabel>
                                     <FormControl>
                                         <Input type="number" placeholder="Positive Amount" {...field} />
                                     </FormControl>
@@ -153,11 +154,12 @@ const SendMoneyModal = () => {
                     <DialogClose asChild>
                         <Button variant="outline" className="cursor-pointer">Cancel</Button>
                     </DialogClose>
-                    <Button form="send-money" type="submit" className="cursor-pointer">Submit</Button>
+                    <Button form="cash-out" type="submit" className="cursor-pointer">Submit</Button>
                 </DialogFooter>
             </DialogContent>
+
         </Dialog>
     );
 };
 
-export default SendMoneyModal;
+export default CashInModal;

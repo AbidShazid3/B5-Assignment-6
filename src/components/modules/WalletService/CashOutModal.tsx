@@ -152,7 +152,7 @@ const CashOutModal = () => {
                 </Form>
                 <DialogFooter>
                     <DialogClose asChild>
-                        <Button variant="outline">Cancel</Button>
+                        <Button variant="outline" className="cursor-pointer">Cancel</Button>
                     </DialogClose>
                     <Button form="cash-out" type="submit" className="cursor-pointer">Submit</Button>
                 </DialogFooter>
