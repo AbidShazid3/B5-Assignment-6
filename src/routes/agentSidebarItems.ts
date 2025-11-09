@@ -1,9 +1,10 @@
-import AgentChangePass from "@/pages/Dashboard/Agent/AgentChangePass";
-import AgentUpdateProfile from "@/pages/Dashboard/Agent/AgentUpdateProfile";
+
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
 const AgentHome = lazy(() => import("@/pages/Dashboard/Agent/AgentHome"))
+const AgentUpdateProfile = lazy(() => import("@/pages/Dashboard/Agent/AgentUpdateProfile"))
+const AgentChangePass = lazy(() => import("@/pages/Dashboard/Agent/AgentChangePass"))
 
 export const agentSidebarItems: ISidebarItem[] = [
     {

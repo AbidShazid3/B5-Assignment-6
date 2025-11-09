@@ -1,5 +1,3 @@
-import AllTransaction from "@/pages/Dashboard/Admin/AllTransaction";
-import AllWallet from "@/pages/Dashboard/Admin/AllWallet";
 import type { ISidebarItem } from "@/types";
 import { lazy } from "react";
 
@@ -8,6 +6,8 @@ const AdminUpdateProfile = lazy(() => import("@/pages/Dashboard/Admin/AdminUpdat
 const AdminChangePass = lazy(() => import("@/pages/Dashboard/Admin/AdminChangePass"))
 const AllUsers = lazy(() => import("@/pages/Dashboard/Admin/AllUsers"))
 const AllAgent = lazy(() => import("@/pages/Dashboard/Admin/AllAgent"))
+const AllWallet = lazy(() => import("@/pages/Dashboard/Admin/AllWallet"))
+const AllTransaction = lazy(() => import("@/pages/Dashboard/Admin/AllTransaction"))
 
 export const adminSidebarItems: ISidebarItem[] = [
     {

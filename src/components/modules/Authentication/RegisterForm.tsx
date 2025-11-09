@@ -11,6 +11,7 @@ import { role } from "@/constants/role";
 import { useRegisterMutation } from "@/redux/features/user/user.api";
 import { toast } from "sonner";
 import { handleApiError } from "@/utils/apiErrorHandler";
+import Password from "@/components/Password";
 
 
 const registerSchema = z.object({
@@ -150,7 +151,7 @@ export default function RegisterForm({
                                 <FormItem>
                                     <FormLabel>Pin</FormLabel>
                                     <FormControl>
-                                        <Input type="password" autoComplete="new-password" placeholder="*******" {...field} />
+                                        <Password {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

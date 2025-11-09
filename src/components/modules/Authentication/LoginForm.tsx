@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
 import { handleApiError } from "@/utils/apiErrorHandler";
+import Password from "@/components/Password";
 
 const loginSchema = z.object({
     phone: z
@@ -99,7 +100,7 @@ export default function LoginForm({
                                 <FormItem>
                                     <FormLabel>Your Pin</FormLabel>
                                     <FormControl>
-                                        <Input type="password" autoComplete="current-password" placeholder="*****" {...field} />
+                                        <Password {...field} />
                                     </FormControl>
                                     <FormDescription>
                                     </FormDescription>
