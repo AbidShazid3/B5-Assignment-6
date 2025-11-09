@@ -217,13 +217,13 @@ const TransactionTable = () => {
                                     <TableCell className="font-medium">{idx + 1}</TableCell>
                                     <TableHead>
                                         <div className="flex flex-col gap-2 py-2">
-                                            <p>{tnx?.from?.user?.name}</p>
+                                            <p>{tnx?.from?.user?.name} -</p>
                                             <p>{tnx?.from?.user?.phone}</p>
                                         </div>
                                     </TableHead>
                                     <TableHead>
                                         <div className="flex flex-col gap-2">
-                                            <p>{tnx?.to?.user?.name}</p>
+                                            <p>{tnx?.to?.user?.name} -</p>
                                             <p>{tnx?.to?.user?.phone}</p>
                                         </div>
                                     </TableHead>
