@@ -7,8 +7,8 @@ This project provides a complete **role-based experience** for **Users**, **Agen
 
 ## 🚀 Live Demo
 
-🔗 **Frontend:** [https://your-frontend-url.vercel.app](#)  
-🔗 **Backend API:** [https://digital-wallet-backend-orpin.vercel.app](#)
+- 🔗 **Frontend:** [https://paynex.vercel.app]
+- 🔗 **Backend API:** [https://digital-wallet-backend-orpin.vercel.app]
 
 ---
 
